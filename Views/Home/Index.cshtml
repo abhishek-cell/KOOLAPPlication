@@ -1,0 +1,32 @@
+﻿@model IEnumerable<KoolApplicationMain.Models.Product>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<div class="row">
+    @foreach (var m in Model)
+    {
+        <div class="col-md-4">
+            <div class="row">
+                <h4>
+                    <span id="mobilename" style="color:darkred"> @m.Description </span>
+                </h4> <p>
+                    <span class="glyphicon glyphicon-heart" style="color:red;pointer-events:fill" contextmenu="Added To WishList"> </span>
+                </p>
+            </div>  
+            <p> 
+                <a href="@Url.Action("ProductDetail","HomeController",m.ItemNumber)">
+                    <img src="~/images/@(m.ItemNumber).jpg" style="overflow: hidden; position: relative; width:200px; height:200px;" />
+                </a>
+             </p>
+            <p> <a class="btn btn-default" href=""> View More» </a><p>
+                <span class="glyphicon glyphicon-shopping-cart" style="color:green"></span>
+            </p> </p>
+        </div>
+    }
+</div>
+
+

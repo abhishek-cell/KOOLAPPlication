@@ -1,0 +1,28 @@
+﻿@model IEnumerable<KoolApplicationMain.Models.ProductDescription>
+@{
+    ViewData["Title"] = "EachProductDetails";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<h2>EachProductDetails</h2>
+
+<h3 > Product Specification </h3>   <div ng - controller = "MainCtrl" > @foreach (var x in Model)
+{<div class = "panel panel-default" > <div class = "panel-heading" > @x.Description </div>   <div class = "panel-body" > <div class = "col-sm-3 col-md-6"
+        style = "color:blue" > <img src = "~/Images/@(x.ItemNumber).jpg"
+        width = "400"
+        height = "400" / > </div>   <div class = "col-sm-9 col-md-6" > <h3 > <span id = "mobilename"
+        style = "color:black" > <b > IteamDetails: </b></span > </h3>   <h6 > <span id = "mobilename"
+        style = "color:black" > @x.Description </span></h6 > <h3 > <span id = "mobilename"
+        style = "color:black" > <b > Brand </b></span > </h3>   <h4 > <span id = "mobilename"
+        style = "color:black" > @x.Brand </span></h4 > <h3 > <span id = "mobilename"
+        style = "color:black" > <b > ItemNumber: </b></span > </h3>   <h6 > <span id = "mobilename"
+        style = "color:black" > @x.ItemNumber </span></h6 > <h3 > <span id = "mobilename"
+        style = "color:black" > <b > Price: </b></span > </h3>   <h6 > <span id = "mobilename"
+        style = "color:black" > @x.Price </span></h6 > </div>   </div>   <div > 
+    <a id = "btn_add" href = "@Url.Action("Index ", "Home ")"class = "btn btn-info btn-lg"style = "margin-left:60px" > 
+        <span class = "glyphicon glyphicon-eye-open" > </span> Continue shopping   </a>   <br / > </div>   </div>
+        } </div>
+
