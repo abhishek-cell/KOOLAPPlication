@@ -5,12 +5,37 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="style.css">
-<link href="http://www.professorcloud.com/styles/cloud-zoom.css" rel="stylesheet" type="text/css">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.js"></script>
-<script type="text/JavaScript" src="http://www.professorcloud.com/js/cloud-zoom.1.0.2.js"></script>
-<script src="~/Scripts/app.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $('#image1').addimagezoom({
+            zoomrange: [3, 10],
+            magnifiersize: [300, 300],
+            magnifierpos: 'right',
+            cursorshade: true,
+            largeimage: 'Image/image1.jpg' //<-- No comma after last option!
+        })
+        $('#image2').addimagezoom({
+            zoomrange: [5, 5],
+            magnifiersize: [400, 400],
+            magnifierpos: 'right',
+            cursorshade: true,
+            cursorshadecolor: 'pink',
+            cursorshadeopacity: 0.3,
+            cursorshadeborder: '1px solid red',
+            largeimage: 'Image/image2.jpg' //<-- No comma after last option!
+        })
+        $('#image3').addimagezoom()
+    })
+</script>
+<style type="text/css">
+    .magnifyarea {
+        box-shadow: 5px 5px 7px #818181;
+        -webkit-box-shadow: 5px 5px 7px #818181;
+        -moz-box-shadow: 5px 5px 7px #818181;
+        filter: progid:DXImageTransform.Microsoft.dropShadow(color=#818181, offX=5, offY=5, positive=true);
+        background: white;
+    }
+</style>
 
 <div class="row">
     @foreach (var m in Model)
@@ -47,7 +72,7 @@
 
                                     <div class="col-sm-3 col-md-6" style="color:blue">
                                         <a  >
-                                            <img  class="cloud-zoom" src="~/images/@(m.ItemNumber).jpg" width="400" height="400" rel="adjustX: 10, adjustY:-4" />
+                                            <img id="image1" src="~/images/@(m.ItemNumber).jpg" width="400" height="400"  />
                                         </a>
 
                                     </div>
