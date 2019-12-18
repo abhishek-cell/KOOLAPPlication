@@ -16,15 +16,56 @@
                 </h4> <p>
                     <span class="glyphicon glyphicon-heart" style="color:red;pointer-events:fill" contextmenu="Added To WishList"> </span>
                 </p>
-            </div>  
-            <p> 
+            </div>
+            <p>
                 <a href="@Url.Action("ProductDetail","HomeController",m.ItemNumber)">
                     <img src="~/images/@(m.ItemNumber).jpg" style="overflow: hidden; position: relative; width:200px; height:200px;" />
                 </a>
-             </p>
+            </p>
+            <div>
+                <button class="tryiton" type="button" data-toggle="modal" data-target="#@(m.ItemNumber)" dat-img="~/images/@(m.ItemNumber).jpg">
+                    Try it on..
+                </button>
+                <span class="glyphicon glyphicon-heart" style="color:red;pointer-events:fill;float:right;margin-top:10px;" contextmenu="Added To WishList"> </span>
+                <div class=" tryiton modal fade" id="@(m.ItemNumber)">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">
+                                    &#9747;
+                                </button>
+                                <h4 class="modal-title">Product View</h4>
+                            </div>
+                            <div class="modal-body mbody">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="~/images/ProductImages/@(m.ItemNumber).jpg" class="img-responsive" alt="product" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4>
+                                            @Html.DisplayFor(modelItem => m.Description)
+                                        </h4>
+                                        <h3>@Html.DisplayFor(modelItem => m.Description)</h3>
+                                        <div>
+                                            <span><b>Price </b>&#36;@Html.DisplayFor(modelItem => m.Price)</span>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <a asp-area="" asp-controller="Home" asp-action="Similar" asp-route-type="@(m.Description)" style="font-size:x-large;color:black">
+                                    Get kooler>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <p> <a class="btn btn-default" href=""> View More» </a><p>
                 <span class="glyphicon glyphicon-shopping-cart" style="color:green"></span>
-            </p> </p>
+            </p> 
         </div>
     }
 </div>
