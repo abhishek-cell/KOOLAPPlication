@@ -21,23 +21,23 @@ namespace KoolApplicationMain.Controllers
             using (MySqlConnection conn = search.GetConnection())
             {
 
-                conn.Open();
-                string str = "select XXIBM_PRODUCT_SKU.Item_number,XXIBM_PRODUCT_SKU.description,XXIBM_PRODUCT_PRICING.List_price,XXIBM_PRODUCT_PRICING.In_stock from XXIBM_PRODUCT_SKU JOIN XXIBM_PRODUCT_PRICING ON XXIBM_PRODUCT_SKU.Item_number=XXIBM_PRODUCT_PRICING.Item_number ";
+                //conn.Open();
+                //string str = "select XXIBM_PRODUCT_SKU.Item_number,XXIBM_PRODUCT_SKU.description,XXIBM_PRODUCT_PRICING.List_price,XXIBM_PRODUCT_PRICING.In_stock from XXIBM_PRODUCT_SKU JOIN XXIBM_PRODUCT_PRICING ON XXIBM_PRODUCT_SKU.Item_number=XXIBM_PRODUCT_PRICING.Item_number ";
 
-                //MySqlCommand cmd = new MySqlCommand(, conn);
-                mda = new MySqlDataAdapter(str, search.GetConnection());
-                mda.Fill(dt);
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    model.Add(new Product()
-                    {
-                        ItemNumber = Convert.ToInt32(dt.Rows[i]["Item_number"]),
-                        Description = dt.Rows[i]["description"].ToString(),
-                        Price = Convert.ToDouble(dt.Rows[i]["List_price"]),
-                        Stock = dt.Rows[i]["In_stock"].ToString()
+                ////MySqlCommand cmd = new MySqlCommand(, conn);
+                //mda = new MySqlDataAdapter(str, search.GetConnection());
+                //mda.Fill(dt);
+                //for (int i = 0; i < dt.Rows.Count; i++)
+                //{
+                //    model.Add(new Product()
+                //    {
+                //        ItemNumber = Convert.ToInt32(dt.Rows[i]["Item_number"]),
+                //        Description = dt.Rows[i]["description"].ToString(),
+                //        Price = Convert.ToDouble(dt.Rows[i]["List_price"]),
+                //        Stock = dt.Rows[i]["In_stock"].ToString()
 
-                    });
-                }
+                //    });
+                //}
 
             }
             return View(model);
@@ -66,6 +66,41 @@ namespace KoolApplicationMain.Controllers
                 }
             }
             return View(model);
+        }
+        [HttpPost]
+        public IActionResult Search(string search)
+        {
+            
+            string s = search.ToUpper();
+            Search ss = new Search();
+            var result = new List<ProductDescription>();
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = ss.GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("select XXIBM_PRODUCT_SKU.Item_number,XXIBM_PRODUCT_SKU.SKUAttribute2,XXIBM_PRODUCT_SKU.SKUAttribute1,XXIBM_PRODUCT_SKU.description,XXIBM_PRODUCT_PRICING.List_price,XXIBM_PRODUCT_PRICING.In_stock from XXIBM_PRODUCT_SKU JOIN XXIBM_PRODUCT_PRICING ON XXIBM_PRODUCT_SKU.Item_number=XXIBM_PRODUCT_PRICING.Item_number ", conn);
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    result.Add(new ProductDescription()
+                    {
+                        ItemNumber = Convert.ToInt32(dt.Rows[i]["Item_number"]),
+                        Description = dt.Rows[i]["description"].ToString(),
+                        Price = Convert.ToDouble(dt.Rows[i]["List_price"]),
+                        Brand = dt.Rows[i]["Brand"].ToString(),
+                        Color= dt.Rows[i]["SKUAttribute2"].ToString(),
+                        Size= dt.Rows[i]["SKUAttribute1"].ToString()
+
+                    });
+                }
+            }
+            result = result.Where(l => string.Compare(l.Brand, s, true) == 0 || l.ClassName.ToUpper().Contains(s) ||
+            l.Color.ToUpper().Contains(s) || l.Size.ToUpper().Contains(s)).ToList();
+            if (result.Count == 0)
+            {
+                return View("NoResults");
+            }
+            ViewBag.name = search;
+            return View("EeachProductDetails", result);
         }
 
         public IActionResult EachProductDetails( )
