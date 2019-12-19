@@ -21,23 +21,23 @@ namespace KoolApplicationMain.Controllers
             using (MySqlConnection conn = search.GetConnection())
             {
 
-                //conn.Open();
-                //string str = "select XXIBM_PRODUCT_SKU.Item_number,XXIBM_PRODUCT_SKU.description,XXIBM_PRODUCT_PRICING.List_price,XXIBM_PRODUCT_PRICING.In_stock from XXIBM_PRODUCT_SKU JOIN XXIBM_PRODUCT_PRICING ON XXIBM_PRODUCT_SKU.Item_number=XXIBM_PRODUCT_PRICING.Item_number ";
+                conn.Open();
+                string str = "select XXIBM_PRODUCT_SKU.Item_number,XXIBM_PRODUCT_SKU.description,XXIBM_PRODUCT_PRICING.List_price,XXIBM_PRODUCT_PRICING.In_stock from XXIBM_PRODUCT_SKU JOIN XXIBM_PRODUCT_PRICING ON XXIBM_PRODUCT_SKU.Item_number=XXIBM_PRODUCT_PRICING.Item_number ";
 
-                ////MySqlCommand cmd = new MySqlCommand(, conn);
-                //mda = new MySqlDataAdapter(str, search.GetConnection());
-                //mda.Fill(dt);
-                //for (int i = 0; i < dt.Rows.Count; i++)
-                //{
-                //    model.Add(new Product()
-                //    {
-                //        ItemNumber = Convert.ToInt32(dt.Rows[i]["Item_number"]),
-                //        Description = dt.Rows[i]["description"].ToString(),
-                //        Price = Convert.ToDouble(dt.Rows[i]["List_price"]),
-                //        Stock = dt.Rows[i]["In_stock"].ToString()
+                //MySqlCommand cmd = new MySqlCommand(, conn);
+                mda = new MySqlDataAdapter(str, search.GetConnection());
+                mda.Fill(dt);
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    model.Add(new Product()
+                    {
+                        ItemNumber = Convert.ToInt32(dt.Rows[i]["Item_number"]),
+                        Description = dt.Rows[i]["description"].ToString(),
+                        Price = Convert.ToDouble(dt.Rows[i]["List_price"]),
+                        Stock = dt.Rows[i]["In_stock"].ToString()
 
-                //    });
-                //}
+                    });
+                }
 
             }
             return View(model);
