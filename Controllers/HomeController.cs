@@ -98,8 +98,8 @@ namespace KoolApplicationMain.Controllers
                         Description = dt.Rows[i]["description"].ToString(),
                         Price = Convert.ToDouble(dt.Rows[i]["List_price"]),
                         Brand = dt.Rows[i]["Brand"].ToString(),
-                        Color= dt.Rows[i]["SKUAttribute2"].ToString(),
-                        Size= dt.Rows[i]["SKUAttribute1"].ToString()
+                        Color= dt.Rows[i]["SKU_ATTRIBUTE_value2"].ToString(),
+                        Size= dt.Rows[i]["SKU_ATTRIBUTE_value1"].ToString()
 
                     });
                 }
