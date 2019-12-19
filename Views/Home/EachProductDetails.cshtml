@@ -22,7 +22,7 @@
         @foreach (var item in Model)
         {
             <div class="product col-md-3">
-                <img src="~/images/ProductImages/@(item.ItemNumber).jpg" id="img" alt="@(item.Description)" />
+                <img src="~/images/@(item.ItemNumber).jpg" id="img" alt="@(item.Description)" />
                 <h4>@Html.DisplayFor(modelItem => item.Brand)</h4>
                 <div>
 
