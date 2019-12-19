@@ -22,7 +22,7 @@ namespace KoolApplicationMain.Controllers
             {
 
                 conn.Open();
-                string str = "select XXIBM_PRODUCT_SKU.Item_number,XXIBM_PRODUCT_SKU.description,XXIBM_PRODUCT_PRICING.List_price,XXIBM_PRODUCT_PRICING.In_stock from XXIBM_PRODUCT_SKU JOIN XXIBM_PRODUCT_PRICING ON XXIBM_PRODUCT_SKU.Item_number=XXIBM_PRODUCT_PRICING.Item_number ";
+                string str = "select XXIBM_PRODUCT_SKU.Item_number,XXIBM_PRODUCT_SKU.SKUAttribute2,XXIBM_PRODUCT_SKU.SKUAttribute1,XXIBM_PRODUCT_SKU.description,XXIBM_PRODUCT_PRICING.List_price,XXIBM_PRODUCT_PRICING.In_stock from XXIBM_PRODUCT_SKU JOIN XXIBM_PRODUCT_PRICING ON XXIBM_PRODUCT_SKU.Item_number=XXIBM_PRODUCT_PRICING.Item_number";
 
                 //MySqlCommand cmd = new MySqlCommand(, conn);
                 mda = new MySqlDataAdapter(str, search.GetConnection());
@@ -78,7 +78,7 @@ namespace KoolApplicationMain.Controllers
             using (MySqlConnection conn = ss.GetConnection())
             {
                 conn.Open();
-                MySqlCommand cmd = new MySqlCommand("select XXIBM_PRODUCT_SKU.Item_number,XXIBM_PRODUCT_SKU.SKUAttribute2,XXIBM_PRODUCT_SKU.SKUAttribute1,XXIBM_PRODUCT_SKU.description,XXIBM_PRODUCT_PRICING.List_price,XXIBM_PRODUCT_PRICING.In_stock from XXIBM_PRODUCT_SKU JOIN XXIBM_PRODUCT_PRICING ON XXIBM_PRODUCT_SKU.Item_number=XXIBM_PRODUCT_PRICING.Item_number ", conn);
+                MySqlCommand cmd = new MySqlCommand("select XXIBM_PRODUCT_SKU.Item_number,XXIBM_PRODUCT_SKU.SKUAttribute2,XXIBM_PRODUCT_SKU.SKUAttribute1,XXIBM_PRODUCT_SKU.description,XXIBM_PRODUCT_PRICING.List_price,XXIBM_PRODUCT_PRICING.In_stock from XXIBM_PRODUCT_SKU JOIN XXIBM_PRODUCT_PRICING ON XXIBM_PRODUCT_SKU.Item_number=XXIBM_PRODUCT_PRICING.Item_number", conn);
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     result.Add(new ProductDescription()
