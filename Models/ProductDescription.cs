@@ -12,5 +12,19 @@ namespace KoolApplicationMain.Models
         public double Price { get; set; }
         public string Brand { get; set; }
 
+        public string ClassName { get; set; }
+
+        public string CommodityName { get; set; }
+
+        public string FamilyName { get; set; }
+
+        public string LongDescription { get; set; }
+
+        public string Color { get; set; }
+
+        public string Size { get; set; }
+
+
+
     }
 }
