@@ -8,10 +8,16 @@ using KoolApplicationMain.Models;
 using MySql.Data.MySqlClient;
 using System.Data;
 
+
 namespace KoolApplicationMain.Controllers
 {
     public class HomeController : Controller
     {
+        private IProductInformation _productInformation;
+        public HomeController(IProductInformation ProductInformation)
+        {
+            _productInformation = ProductInformation;
+        }
         public IActionResult Index()
         {
             Search search = new Search();
@@ -47,7 +53,7 @@ namespace KoolApplicationMain.Controllers
         public IActionResult ProductDetail(int p)
         {
             Search search = new Search();
-            var model = new List<ProductDescription>();
+            var model = new List<Product>();
             DataTable dt = new DataTable();
             MySqlDataAdapter mda;
             using (MySqlConnection conn = search.GetConnection())
@@ -58,7 +64,7 @@ namespace KoolApplicationMain.Controllers
                 mda.Fill(dt);
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    model.Add(new ProductDescription()
+                    model.Add(new Product()
                     {
                         ItemNumber = Convert.ToInt32(dt.Rows[i]["Item_number"]),
                         Description = dt.Rows[i]["description"].ToString(),
@@ -73,74 +79,26 @@ namespace KoolApplicationMain.Controllers
         [HttpPost]
         public IActionResult Search(string search)
         {
-            
-            string s = search.ToUpper();
-            Search ss = new Search();
-            var result = new List<ProductDescription>();
-            DataTable dt = new DataTable();
-            MySqlDataAdapter mda;
-            using (MySqlConnection conn = ss.GetConnection())
-            {
-                conn.Open();
-                string str = "select XXIBM_PRODUCT_SKU.Item_number, XXIBM_PRODUCT_SKU.description, XXIBM_PRODUCT_SKU.Long_description, XXIBM_PRODUCT_SKU.SKU_ATTRIBUTE_value1, XXIBM_PRODUCT_SKU.SKU_ATTRIBUTE_value2, XXIBM_PRODUCT_SKU.SKU_unit_of_measure, XXIBM_PRODUCT_STYLE.Brand, " +
-                    "XXIBM_PRODUCT_PRICING.List_price,XXIBM_PRODUCT_PRICING.In_stock,XXIBM_PRODUCT_PRICING.Discount," +
-     "XXIBM_PRODUCT_CATALOGUE.Family_name,XXIBM_PRODUCT_CATALOGUE.Class_name,XXIBM_PRODUCT_CATALOGUE.Commodity_name " +
-  "from XXIBM_PRODUCT_SKU JOIN XXIBM_PRODUCT_STYLE ON XXIBM_PRODUCT_SKU.Style_item=XXIBM_PRODUCT_STYLE.Item_number JOIN XXIBM_PRODUCT_PRICING ON XXIBM_PRODUCT_SKU.Item_number=XXIBM_PRODUCT_PRICING.Item_number" +
-  " JOIN  XXIBM_PRODUCT_CATALOGUE ON XXIBM_PRODUCT_SKU.Catalogue_category=XXIBM_PRODUCT_CATALOGUE.Commodity";
-                mda = new MySqlDataAdapter(str, ss.GetConnection());
-                mda.Fill(dt);
-                
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    result.Add(new ProductDescription()
-                    {
-                        ItemNumber = Convert.ToInt32(dt.Rows[i]["Item_number"]),
-                        Description = dt.Rows[i]["description"].ToString(),
-                        Price = Convert.ToDouble(dt.Rows[i]["List_price"]),
-                        Brand = dt.Rows[i]["Brand"].ToString(),
-                        Color= dt.Rows[i]["SKU_ATTRIBUTE_value2"].ToString(),
-                        Size= dt.Rows[i]["SKU_ATTRIBUTE_value1"].ToString()
 
-                    });
-                }
-            }
+            string s = search.ToUpper();
+            var result = _productInformation.GetProductsInformation();
             result = result.Where(l => string.Compare(l.Brand, s, true) == 0 || l.ClassName.ToUpper().Contains(s) ||
-            l.Color.ToUpper().Contains(s) || l.Size.ToUpper().Contains(s)).ToList();
+            l.CommodityName.ToUpper().Contains(s) || l.FamilyName.ToUpper().Contains(s) ||
+            l.LongDescription.ToUpper().Contains(s) || l.Color.ToUpper().Contains(s) || l.Size.ToUpper().Contains(s)).ToList();
             if (result.Count == 0)
             {
                 return View("NoResults");
             }
             ViewBag.name = search;
-            return View("EeachProductDetails", result);
+            return View("EachProductDetails", result);
+
         }
 
-        public IActionResult EachProductDetails( )
+        public IActionResult EachProductDetails()
         {
-            Search search = new Search();
-            var model = new List<ProductDescription>();
-            using (MySqlConnection conn = search.GetConnection())
-            {
-                conn.Open();
-                DataTable dt = new DataTable();
-                string str = "select XXIBM_PRODUCT_STYLE.Brand,XXIBM_PRODUCT_SKU.Item_number,XXIBM_PRODUCT_SKU.description,XXIBM_PRODUCT_PRICING.List_price,XXIBM_PRODUCT_PRICING.In_stock from XXIBM_PRODUCT_SKU JOIN XXIBM_PRODUCT_PRICING ON XXIBM_PRODUCT_SKU.Item_number=XXIBM_PRODUCT_PRICING.Item_number JOIN XXIBM_PRODUCT_STYLE ON XXIBM_PRODUCT_STYLE.Item_number= XXIBM_PRODUCT_SKU.Item_number";
-                //MySqlCommand cmd = new MySqlCommand("select XXIBM_PRODUCT_SKU.Item_number,XXIBM_PRODUCT_SKU.description,XXIBM_PRODUCT_PRICING.List_price,XXIBM_PRODUCT_PRICING.In_stock from XXIBM_PRODUCT_SKU JOIN XXIBM_PRODUCT_PRICING ON XXIBM_PRODUCT_SKU.Item_number=XXIBM_PRODUCT_PRICING.Item_number ", conn);
-                MySqlDataAdapter mda = new MySqlDataAdapter(str, search.GetConnection());
-                mda.Fill(dt);
-                mda = new MySqlDataAdapter(str, search.GetConnection());
-                mda.Fill(dt);
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    model.Add(new ProductDescription()
-                    {
-                        ItemNumber = Convert.ToInt32(dt.Rows[i]["Item_number"]),
-                        Description = dt.Rows[i]["description"].ToString(),
-                        Price = Convert.ToDouble(dt.Rows[i]["List_price"]),
-                        Brand = dt.Rows[i]["Brand"].ToString()
-
-                    });
-                }
-            }
-            return View();
+            var list = _productInformation.GetProductsInformation();
+            ViewBag.name = "All products";
+            return View(list);
         }
 
         public IActionResult About()
