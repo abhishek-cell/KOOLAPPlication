@@ -11,6 +11,11 @@
         <link href="~/css/menu.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" media="all" />
+        <link rel="stylesheet" href="~/css/site.css" media="all" />
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
@@ -38,10 +43,18 @@
                     <li> <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Product Menu</a></li>
 
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                @*<form class="form-inline my-2 my-lg-0">*@
+
+                    <form id="labnol" asp-area="" method="post" asp-controller="Home" asp-action="Search">
+                        <div class="search box">
+                            <i class="fa fa-microphone" onclick="startDictation()"></i>
+                            <input class="input-sm" type="text" name="search" id="transcript" placeholder="Search for products..." required />
+                        </div>
+                        <div class="box"> <input class="btn-sm" type="submit" value="Search" /></div>
+                    </form>
+                    @*<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                </form>*@
             </div>
         </div>
     </nav>
