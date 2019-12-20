@@ -39,18 +39,17 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="ProductDetail">ProductList</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="EachProductDetails">ProductList</a></li>
                     <li> <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Product Menu</a></li>
 
                 </ul>
                 @*<form class="form-inline my-2 my-lg-0">*@
 
-                    <form id="labnol" asp-area="" method="post" asp-controller="Home" asp-action="Search">
+                    <form id="labnol" asp-area="" method="post" asp-controller="Home" asp-action="Search" class="form-inline my-2 my-lg-0">
                         <div class="search box">
                             <i class="fa fa-microphone" onclick="startDictation()"></i>
-                            <input class="input-sm" type="text" name="search" id="transcript" placeholder="Search for products..." required />
-                        </div>
-                        <div class="box"> <input class="btn-sm" type="submit" value="Search" /></div>
+                            <input class="form-control mr-sm-2" type="text" name="search" id="transcript" placeholder="Search for products..." required />
+                        <input class="btn-sm" type="submit" value="Search" /></div>
                     </form>
                     @*<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
