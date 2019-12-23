@@ -5,74 +5,183 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="~/css/Index.css" rel="stylesheet" />
 
-
-<div class="row">
-    @foreach (var m in Model)
-    {
-        <div class="col-md-4">
-            <div class="row">
-                <h4>
-                    <span id="mobilename" style="color:darkred"> @m.Description </span>
-                </h4> <p>
-                    <span class="glyphicon glyphicon-heart" style="color:red;pointer-events:fill" contextmenu="Added To WishList"> </span>
-                </p>
+<section class="feature_part padding_top">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="section_tittle text-center">
+                    <h2>Featured Products</h2>
+                </div>
             </div>
-            <p>
-                <a>
-                    <img src="~/images/@(m.ItemNumber).jpg" style="overflow: hidden; position: relative; width:200px; height:200px;" />
-                </a>
-            </p>
-            <div>
-                <button class="btn btn-default" type="button" data-toggle="modal" data-target="#@(m.ItemNumber)" dat-img="~/images/@(m.ItemNumber).jpg">
-                    View Details..
-                </button>
-                <div class=" tryiton modal fade" id="@(m.ItemNumber)">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">
-                                    &#9747;
-                                </button>
-                                <h4 class="modal-title">Product View</h4>
-                            </div>
-                            <div class="modal-body mbody">
-                                <div class="row">
-                                    <div class="col-md-6">
-
-
-                                        <div class="img-box">
-                                            <img src="~/images/@(m.ItemNumber).jpg" class="img-responsive" alt="product" />
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h4>
-                                            @Html.DisplayFor(modelItem => m.Description)
-                                        </h4>
-                                        <h3>@Html.DisplayFor(modelItem => m.Description)</h3>
-                                        <div>
-                                            <span><b>Price </b>&#36;@Html.DisplayFor(modelItem => m.Price)</span>
-                                        </div>
-
-
+        </div>
+        <div class="row align-items-center justify-content-between">
+            <div class="col-lg-7 col-sm-6">
+                <div class="single_feature_post_text">
+                    <p>Reflex Womens </p>
+                    <h3>Track Jacket</h3>
+                    <a asp-area="" asp-controller="Home" asp-action="EachProductDetails" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                    <img src="~/images/1001.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-5 col-sm-6">
+                <div class="single_feature_post_text">
+                    <p>Reflex Mans</p>
+                    <h3>Track Jacket</h3>
+                    <a asp-area="" asp-controller="Home" asp-action="EachProductDetails" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                    <img src="~/images/2002.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-5 col-sm-6">
+                <div class="single_feature_post_text">
+                    <p>MLANM Mens</p>
+                    <h3>Casual Slim Fit T-Shirt</h3>
+                    <a asp-area="" asp-controller="Home" asp-action="EachProductDetails" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                    <img src="~/images/3003.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-7 col-sm-6">
+                <div class="single_feature_post_text">
+                    <p>IWOLLENCE Womens </p>
+                    <h3>Waffle Knit Tunic Blouse</h3>
+                    <a asp-area="" asp-controller="Home" asp-action="EachProductDetails" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
+                    <img src="~/images/5005.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="product_list section_padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="section_tittle text-center">
+                    <h2>awesome <span>shop</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="product_list_slider owl-carousel">
+                    <div class="single_product_list_slider">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="single_product_item">
+                                    <img src="~/images/1002.jpg" alt="">
+                                    <div class="single_product_text">
+                                        <h4>Jacket </h4>
+                                        <a asp-area="" asp-controller="Home" asp-action="EachProductDetails" class="add_cart">Explore More<i class="ti-heart"></i></a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <a asp-area="" asp-controller="Home" asp-action="Similar" asp-route-type="@(m.Description)" style="font-size:x-large;color:black">
-                                    Get kooler>
-                                </a>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="single_product_item">
+                                    <img src="~/images/2002.jpg" alt="" style="overflow: hidden; position: relative; width:200px; height:200px;">
+                                    <div class="single_product_text">
+                                        <h4>MLANM</h4>
+                                        <a asp-area="" asp-controller="Home" asp-action="EachProductDetails" class="add_cart">Explore More<i class="ti-heart"></i></a>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="single_product_item">
+                                    <img src="~/images/3002.jpg" alt="" style="overflow: hidden; position: relative; width:200px; height:200px;">
+                                    <div class="single_product_text">
+                                        <h4>Gildan</h4>
+                                        <a asp-area="" asp-controller="Home" asp-action="EachProductDetails" class="add_cart">Explore More<i class="ti-heart"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="single_product_item">
+                                    <img src="~/images/4002.jpg" alt="" style="overflow: hidden; position: relative; width:200px; height:200px;">
+                                    <div class="single_product_text">
+                                        <h4>IWOLLENCE</h4>
+                                        <a asp-area="" asp-controller="Home" asp-action="EachProductDetails" class="add_cart">Explore More<i class="ti-heart"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="single_product_item">
+                                    <img src="~/images/5005.jpg" alt="" style="overflow: hidden; position: relative; width:200px; height:200px;">
+                                    <div class="single_product_text">
+                                        <h4>IWOLLENCE</h4>
+                                        <a asp-area="" asp-controller="Home" asp-action="EachProductDetails" class="add_cart">Explore More<i class="ti-heart"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="single_product_item">
+                                    <img src="~/images/6002.jpg" alt="" style="overflow: hidden; position: relative; width:200px; height:200px;">
+                                    <div class="single_product_text">
+                                        <h4>Workforce</h4>
+                                        <a asp-area="" asp-controller="Home" asp-action="EachProductDetails" class="add_cart">Explore More<i class="ti-heart"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="single_product_item">
+                                    <img src="~/images/7002.jpg" alt="" style="overflow: hidden; position: relative; width:200px; height:200px;">
+                                    <div class="single_product_text">
+                                        <h4>Suits</h4>
+                                        <a asp-area="" asp-controller="Home" asp-action="EachProductDetails" class="add_cart">Explore More<i class="ti-heart"></i></a>
+                                        <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="single_product_item">
+                                    <img src="~/images/9002.jpg" alt="" style="overflow: hidden; position: relative; width:200px; height:200px;">
+                                    <div class="single_product_text">
+                                        <h4>Suits</h4>
+                                        <a asp-area="" asp-controller="Home" asp-action="EachProductDetails" class="add_cart">Explore More<i class="ti-heart"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="our_offer section_padding">
+    <div class="container">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-lg-6 col-md-6">
+                <div class="offer_img">
+                    <img src="~/images/9007.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="offer_text">
+                    <h2>
+                        Weekly Sale on
+                        60% Off All Products
+                    </h2>
+                    <div class="date_countdown">
+                        <div id="timer">
+                            <div id="days" class="date"></div>
+                            <div id="hours" class="date"></div>
+                            <div id="minutes" class="date"></div>
+                            <div id="seconds" class="date"></div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="enter email address"
+                               aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <a href="#" class="input-group-text btn_2" id="basic-addon2">book now</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <p>
-                <span class="glyphicon glyphicon-shopping-cart" style="color:green"></span>
-            </p>
         </div>
-    }
-</div>
+    </div>
+</section>
+
+
 
 
