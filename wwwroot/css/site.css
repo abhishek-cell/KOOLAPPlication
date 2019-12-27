@@ -28,6 +28,22 @@ body {
     margin: 15px;
 }
 
+.search {
+    position: relative;
+}
+
+    .search input {
+        text-indent: 30px;
+    }
+
+    .search .fa-microphone {
+        position: absolute;
+        top: 9px;
+        left: 5px;
+        font-size: 13px;
+        cursor: pointer;
+    }
+
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
