@@ -42,16 +42,23 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="EachProductDetails">ProductList</a></li>
                     <li> <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Product Menu</a></li>
 
+                    <li>
+
+                        <form class="form-inline md-form form-sm active-cyan-2 mt-2" id="labnol" asp-area="" method="post" asp-controller="Home" asp-action="Search">
+                            <div class="search box">
+                                <i class="fa fa-microphone" onclick="startDictation()"></i>
+                                <input class="form-control mr-sm-2" type="text" name="search" id="transcript" placeholder="Search for products..." required />
+                                @*<input class="btn-sm" type="submit" value="Search" />*@
+                                <button class="btn btn-outline-warning btn-rounded btn-sm my-0" type="submit">Search</button>
+
+                            </div>
+                        </form>
+                        
+                    </li> 
                 </ul>
                 @*<form class="form-inline my-2 my-lg-0">*@
 
-                <form id="labnol" asp-area="" method="post" asp-controller="Home" asp-action="Search">
-                    <div class="search box">
-                        @*<i class="fa fa-microphone" onclick="startDictation()"></i>*@
-                        <input class="input-sm" type="text" name="search" id="transcript" placeholder="Search for products..." required />
-                        <input class="btn-sm" type="submit" value="Search" />
-                    </div>
-                </form>
+                
                 @*<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>*@
