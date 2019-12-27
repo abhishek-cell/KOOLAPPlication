@@ -9,6 +9,9 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <link href="~/css/menu.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" media="all" />
@@ -21,50 +24,27 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/menu.css" asp-append-version="true" />
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index"  class="navbar-brand" style="font-family:'Comic Sans MS';font-size:large"  >Red Hocks.</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="EachProductDetails">ProductList</a></li>
-                    <li> <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Product Menu</a></li>
+    <div class="topnav">
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand" style="font-family:'Comic Sans MS';font-size:large">Red Hocks.</a>
+        <a class="active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        <a asp-area="" asp-controller="Home" asp-action="EachProductDetails">ProductList</a>
+        <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Category</a>
+        <div class="search-container">
+            <form id="labnol" asp-area="" method="post" asp-controller="Home" asp-action="Search">
+                <div class="search box">
+                    <i class="fa fa-microphone" onclick="startDictation()"></i>
+                    <input class="input-sm" type="text" name="search" id="transcript" placeholder="Search for products..." required />
+                    <button type="submit"><i class="fa fa-search"></i></button>
 
-                    <li>
-
-                        <form class="form-inline md-form form-sm active-cyan-2 mt-2" id="labnol" asp-area="" method="post" asp-controller="Home" asp-action="Search">
-                            <div class="search box">
-                                <i class="fa fa-microphone" onclick="startDictation()"></i>
-                                <input class="form-control mr-sm-2" type="text" name="search" id="transcript" placeholder="Search for products..." required />
-                                @*<input class="btn-sm" type="submit" value="Search" />*@
-                                <button class="btn btn-outline-warning btn-rounded btn-sm my-0" type="submit">Search</button>
-
-                            </div>
-                        </form>
-                        
-                    </li> 
-                </ul>
-                @*<form class="form-inline my-2 my-lg-0">*@
-
-                
-                @*<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>*@
-            </div>
+                </div>
+            </form>
         </div>
-    </nav>
+    </div>
+    
 
 
     @*<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -72,6 +52,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
         </nav>*@
+
+    
     <div id="wrapper">
 
         <!-- Sidebar -->
