@@ -52,6 +52,7 @@ namespace KoolApplicationMain.Controllers
         }
         public IActionResult ProductDetail()
         {
+
             var list = _productInformation.GetProductsInformation();
             ViewBag.name = "All products";
             return View(list);
@@ -71,6 +72,21 @@ namespace KoolApplicationMain.Controllers
             }
             ViewBag.name = search;
             return View("EachProductDetails", result);
+
+        }
+
+        public IActionResult Brands(string brand)
+        {
+
+            var result = _productInformation.GetProductsInformation();
+
+            result = result.Where(l => string.Compare(l.Brand, brand, true) == 0).ToList();
+            if (result.Count == 0)
+            {
+                return View("NoResults");
+            }
+            ViewBag.name = brand;
+            return View("ProductDetail", result);
 
         }
 
