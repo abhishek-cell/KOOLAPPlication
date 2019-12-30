@@ -95,7 +95,7 @@ namespace KoolApplicationMain.Controllers
 
             var result = _productInformation.GetProductsInformation();
 
-            result = result.Where(l => string.Compare(l.CommodityName, type, true) == 0).ToList();
+            result = result.Where(l => string.Compare(l.CommodityName.ToString(), type, true) == 0).ToList();
             if (result.Count == 0)
             {
                 return View("NoResults");
@@ -110,7 +110,7 @@ namespace KoolApplicationMain.Controllers
 
             var result = _productInformation.GetProductsInformation();
 
-            result = result.Where(l => string.Compare(l.Color, color, true) == 0).ToList();
+            result = result.Where(l => string.Compare(l.Color.ToString(), color, true) == 0).ToList();
             if (result.Count == 0)
             {
                 return View("NoResults");
