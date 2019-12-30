@@ -15,6 +15,8 @@
     position: relative;
 }
 
+
+
 .img-zoom-lens {
     position: absolute;
     border: 1px solid #d4d4d4;
@@ -58,7 +60,7 @@ input:focus {
 
 /* line 24, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_common.scss */
 .section_padding {
-    padding: 140px 0px;
+    padding: 40px 0px;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
