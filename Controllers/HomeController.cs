@@ -90,35 +90,7 @@ namespace KoolApplicationMain.Controllers
 
         }
 
-        public IActionResult Type(string type)
-        {
 
-            var result = _productInformation.GetProductsInformation();
-
-            result = result.Where(l => string.Compare(l.CommodityName.ToString(), type, true) == 0).ToList();
-            if (result.Count == 0)
-            {
-                return View("NoResults");
-            }
-            ViewBag.name = type;
-            return View("ProductDetail", result);
-
-        }
-
-        public IActionResult Color(string color)
-        {
-
-            var result = _productInformation.GetProductsInformation();
-
-            result = result.Where(l => string.Compare(l.Color.ToString(), color, true) == 0).ToList();
-            if (result.Count == 0)
-            {
-                return View("NoResults");
-            }
-            ViewBag.name = color;
-            return View("ProductDetail", result);
-
-        }
 
         public IActionResult EachProductDetails()
         {
