@@ -3,7 +3,7 @@
     ViewData["Title"] = "Product Details";
 }
     <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.min.js'></script>
@@ -15,8 +15,10 @@
                 // $('.img-box').zoom({ on: 'toggle' });
             });
         </script>
+
         <link href="~/css/Index.css" rel="stylesheet" />
         <script src="~/js/menu.js"></script>
+        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     </head>
 
     <h2>Results for @ViewBag.name</h2>
@@ -38,26 +40,17 @@
                 </a>
             </p>
             <h4>@Html.DisplayFor(modelItem => item.Brand)</h4>
-            @*<div>
-
-                <span id="price"><b>&#36;@Html.DisplayFor(modelItem => item.Price)</b></span>
-
-                <span style="float:right">
-                    @if (item.Stock == "Yes")
-                    {
-                        <b style="color:forestgreen"> In Stock</b>;
-                    }
-                    else
-                    {
-                        <b style="color:red">@Html.DisplayFor(modelItem => item.Stock)</b>
-                    }
-                </span>
-            </div>*@
-
         <div>
             <button class="btn btn-default" type="button" data-toggle="modal" data-target="#@(item.ItemNumber)" dat-img="~/images/@(item.ItemNumber).jpg">
                 View Details..
             </button>
+            <div id="overlay" onclick="off()">
+                <div id="text">Overlay Text</div>
+            </div>
+            <div style="padding:20px">
+                <h2>Overlay with Text</h2>
+                <button onclick="on()">Turn on overlay effect</button>
+            </div>
             <div class=" tryiton modal fade" id="@(item.ItemNumber)">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -73,9 +66,8 @@
                                 <div class="col-md-6">
                                     <div class="img-zoom-container">
                                         <img src="~/images/@(item.ItemNumber).jpg" class="img-responsive" alt="product" />
-                                        <div id="myresult" class="img-zoom-result"></div>
                                     </div>
-                                    
+
 
                                 </div>
                                 <div class="col-md-6">
@@ -125,17 +117,9 @@
                                             </span>
 
                                         </div>
-                                        <button type="button">Add to cart</button>
                                     </div>
                                 </div>
                             </div>
-
-                        </div>
-                        <div class="modal-footer">
-
-                            <a asp-area="" asp-controller="Home" asp-action="Similar" asp-route-type="@(item.CommodityName)" style="font-size:x-large;color:black">
-                                Get kooler>
-                            </a>
 
                         </div>
                     </div>
