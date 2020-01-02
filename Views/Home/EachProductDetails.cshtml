@@ -45,13 +45,6 @@
             <button class="btn btn-default" type="button" data-toggle="modal" data-target="#@(item.ItemNumber)" dat-img="~/images/@(item.ItemNumber).jpg">
                 View Details..
             </button>
-            <div id="overlay" onclick="off()">
-                <div id="text">Overlay Text</div>
-            </div>
-            <div style="padding:20px">
-                <h2>Overlay with Text</h2>
-                <button onclick="on()">Turn on overlay effect</button>
-            </div>
             <div class=" tryiton modal fade" id="@(item.ItemNumber)">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
