@@ -68,7 +68,7 @@ namespace KoolApplicationMain.Controllers
             l.LongDescription.ToUpper().Contains(s) || l.Color.ToUpper().Contains(s) || l.Size.ToUpper().Contains(s)).ToList();
             if (result.Count == 0)
             {
-                return View("NoResults");
+                return View("NoResult");
             }
             ViewBag.name = search;
             return View("EachProductDetails", result);
@@ -83,7 +83,7 @@ namespace KoolApplicationMain.Controllers
             result = result.Where(l => string.Compare(l.Brand, brand, true) == 0).ToList();
             if (result.Count == 0)
             {
-                return View("NoResults");
+                return View("NoResult");
             }
             ViewBag.name = brand;
             return View("ProductDetail", result);
@@ -98,7 +98,7 @@ namespace KoolApplicationMain.Controllers
             result = result.Where(l => string.Compare(l.Color, color, true) == 0).ToList();
             if (result.Count == 0)
             {
-                return View("NoResults");
+                return View("NoResult");
             }
             ViewBag.name = color;
             return View("ProductDetail", result);
@@ -113,7 +113,7 @@ namespace KoolApplicationMain.Controllers
             result = result.Where(l => string.Compare(l.CommodityName, type, true) == 0).ToList();
             if (result.Count == 0)
             {
-                return View("NoResults");
+                return View("NoResult");
             }
             ViewBag.name = type;
             return View("ProductDetail", result);
