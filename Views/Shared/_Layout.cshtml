@@ -37,10 +37,9 @@
             <form id="labnol" asp-area="" method="post" asp-controller="Home" asp-action="Search">
                 <div class="search box">
                     <i class="fa fa-microphone" onclick="startDictation()"></i>
-                    
+                    <button data-toggle="modal" data-target="#imagesearch"><i class="fa fa-camera" style="font-size:15px"></i></button>
                     <input class="input-sm" type="text" name="search" id="transcript" placeholder="Search for products..." required />
                     <button type="submit"><i class="fa fa-search"></i></i></button>
-
 
 
                 </div>
@@ -48,6 +47,25 @@
             </form>
         </div>
     </div>
+    <div class="modal fade" id="imagesearch" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        &#9747;
+                    </button>
+                    <h4 class="modal-title">Image Search</h4>
+                </div>
+                <div class="modal-body">
+                    <form asp-area="" method="post" asp-controller="home" asp-action="imageSearch" enctype="multipart/form-data">
+                        <input type="file" name="imagefile" />
+                        <input type="submit" value ="Upload" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     
 
 
