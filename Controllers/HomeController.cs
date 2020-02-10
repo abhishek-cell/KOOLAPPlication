@@ -7,16 +7,26 @@ using Microsoft.AspNetCore.Mvc;
 using KoolApplicationMain.Models;
 using MySql.Data.MySqlClient;
 using System.Data;
-
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using IBM.Cloud.SDK.Core.Authentication.Iam;
+using IBM.Watson.VisualRecognition.v3;
+using IBM.Cloud.SDK.Core.Http;
+using IBM.Watson.VisualRecognition.v3.Model;
+using Newtonsoft.Json.Linq;
 
 namespace KoolApplicationMain.Controllers
 {
     public class HomeController : Controller
     {
         private IProductInformation _productInformation;
-        public HomeController(IProductInformation ProductInformation)
+
+        private IHostingEnvironment _iweb;
+        public HomeController(IProductInformation productInformation, IHostingEnvironment iweb)
         {
-            _productInformation = ProductInformation;
+            _productInformation = productInformation;
+            _iweb = iweb;
         }
         public IActionResult Index()
         {
@@ -141,6 +151,67 @@ namespace KoolApplicationMain.Controllers
             ViewData["Message"] = "Your contact page.";
 
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> imageSearch(IFormFile imagefile)
+        {
+            var result = _productInformation.GetProductsInformation();
+            List<string> threshold = new List<string>();
+            string ext = Path.GetExtension(imagefile.FileName);
+            if (ext == ".jpg" || ext == ".gif")
+            {
+                var imageSave = Path.Combine(_iweb.WebRootPath, "images", imagefile.FileName);
+                var filestream = new FileStream(imageSave, FileMode.Create);
+                await imagefile.CopyToAsync(filestream);
+                filestream.Close();
+                IamAuthenticator authenticator = new IamAuthenticator(
+        apikey: "9qgeef7jn__HEuNYblTDxq4eAlbifXYTMBj1b4PGDw7X"
+        );
+                VisualRecognitionService visualRecognition = new VisualRecognitionService("2018-03-19", authenticator);
+                visualRecognition.SetServiceUrl("https://api.us-south.visual-recognition.watson.cloud.ibm.com/instances/2d9c4e1b-6a3a-47f5-808a-2144e02dce84");
+                DetailedResponse<ClassifiedImages> results;
+                using (FileStream fs = System.IO.File.OpenRead(imageSave))
+                {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        fs.CopyTo(ms);
+                        results = visualRecognition.Classify(
+                            imagesFile: ms,
+                            imagesFilename: imagefile.FileName
+                            );
+                    }
+                }
+                JObject json = JObject.Parse(results.Response);
+                dynamic obj = json["images"][0]["classifiers"][0]["classes"];
+                for (int i = 0; i < obj.Count; i++)
+                {
+                    threshold.Add(obj[i]["class"].ToString().ToLower());
+                }
+                var brands = result.Where(m => m.Brand != null).Select(m => m.Brand).Distinct();
+                var colors = result.Where(m => m.Color != "").Select(m => m.Color).Distinct();
+                var sizes = result.Where(m => m.Size != null).Select(m => m.Size).Distinct();
+                ViewBag.brand = brands;
+                ViewBag.color = colors;
+                ViewBag.size = sizes;
+                var imgresult = result.Where(l => threshold.Any(s => l.ClassName.ToLower().Contains(s) ||
+            threshold.Any(l.CommodityName.ToLower().Contains) || threshold.Any(l.Color.ToLower().Contains) || threshold.Any(l.LongDescription.ToLower().Contains))).ToList();
+                FileInfo fi = new FileInfo(imageSave);
+                if (fi != null)
+                {
+                    System.IO.File.Delete(imageSave);
+                    fi.Delete();
+                }
+                if (imgresult.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                else
+                {
+                    return View("ProductDetail", imgresult);
+                }
+            }
+            return View("Index");
         }
 
         public IActionResult Privacy()
